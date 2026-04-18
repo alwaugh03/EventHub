@@ -1,29 +1,38 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title><%= content_for(:title) || "Event Hub" %></title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="Event Hub">
-    <meta name="mobile-web-app-capable" content="yes">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<head>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<head>
 
-    <%= yield :head %>
+<body>
 
-    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
-    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <%= link_to "EventHub", root_path, class: "navbar-brand" %>
 
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
-    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
-    <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
-  </head>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><%= link_to "Events", "#", class: "nav-link" %></li>
+          <li class="nav-item"><%= link_to "Categories", "#", class: "nav-link" %></li>
+          <li class="nav-item"><%= link_to "Login", "#", class: "nav-link" %></li>
+          <li class="nav-item">
+            <%= link_to "Sign Up", "#", class: "btn btn-primary ms-2" %>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
-  <body>
-    <%= yield %>
-  </body>
-</html>
+  <%= yield %>
+
+  <!-- FOOTER -->
+  <footer class="bg-dark text-white text-center py-3 mt-5">
+    <div class="container">
+      <p class="mb-0">EventHub Team | Web Development Course | 2026</p>
+    </div>
+  </footer>
+
+</body>
