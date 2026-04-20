@@ -1,25 +1,10 @@
 
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Repository made by Alfonso Waugh and Francisco Langlois
 
-Things you may want to cover:
+This repository contains: 
 
-* Ruby version
+* All the ruby files to be run in a single folder
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* A folder containing the aditional documents required for the first assignment 
