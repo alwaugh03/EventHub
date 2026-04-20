@@ -14,15 +14,21 @@
       </button>
 
       <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><%= link_to "Events", "#", class: "nav-link" %></li>
-          <li class="nav-item"><%= link_to "Categories", "#", class: "nav-link" %></li>
-          <li class="nav-item"><%= link_to "Login", "#", class: "nav-link" %></li>
-          <li class="nav-item">
-            <%= link_to "Sign Up", "#", class: "btn btn-primary ms-2" %>
-          </li>
-        </ul>
-      </div>
+  <ul class="navbar-nav ms-auto">
+    <li class="nav-item">
+      <%= link_to "Events", events_path, class: "nav-link" %>
+    </li>
+    <li class="nav-item">
+      <%= link_to "Categories", categories_path, class: "nav-link" %>
+    </li>
+    <li class="nav-item">
+      <%= link_to "Login", login_path, class: "nav-link" %>
+    </li>
+    <li class="nav-item">
+      <%= link_to "Sign Up", signup_path, class: "btn btn-primary ms-2" %>
+    </li>
+  </ul>
+</div>
     </div>
   </nav>
 
@@ -31,7 +37,7 @@
   <!-- FOOTER -->
   <footer class="bg-dark text-white text-center py-3 mt-5">
     <div class="container">
-      <p class="mb-0">EventHub Team | Web Development Course | 2026</p>
+      <p class="mb-0">EventHub by Alfonso Waugh, Francisco Langlois | Web Development Course | 2026</p>
     </div>
   </footer>
 
