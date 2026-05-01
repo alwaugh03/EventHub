@@ -1,53 +1,88 @@
-# Users
-users = 5.times.map do |i|
-  User.create!(
-    first_name: "User#{i}",
-    last_name: "Test",
-    email: "user#{i}@mail.com"
-  )
-end
+# Limpiar base de datos
+Registration.destroy_all
+Review.destroy_all
+Event.destroy_all
+User.destroy_all
 
-# Admins
-admins = 2.times.map do |i|
-  Administrator.create!(
-    first_name: "Admin#{i}",
-    last_name: "Boss",
-    email: "admin#{i}@mail.com"
-  )
-end
+puts "Creating users..."
 
-# Events
-events = 3.times.map do |i|
-  Event.create!(
-    title: "Event #{i}",
-    description: "Description #{i}",
-    start_date: Time.now,
-    end_date: Time.now + 1.day,
-    maximum_capacity: 100,
-    available_capacity: 50,
-    lifecycle_stage: :published
-  )
-end
+u1 = User.create!(email: "alice@test.com", role: :regular)
+u2 = User.create!(email: "bob@test.com", role: :regular)
+u3 = User.create!(email: "carol@test.com", role: :regular)
 
-# Relations
-events.each do |event|
-  users.sample(3).each do |user|
-    UserEvent.create!(user: user, event: event)
-  end
+puts "Creating events..."
 
-  admins.each do |admin|
-    AdministratorEvent.create!(administrator: admin, event: event)
-  end
-end
+# Evento FUTURO con cupo disponible
+e1 = Event.create!(
+  title: "Tech Conference",
+  description: "A great tech event",
+  category: "Tech",
+  venue: "Auditorium",
+  start_date: Time.current + 2.days,
+  end_date: Time.current + 3.days,
+  maximum_capacity: 3,
+  available_capacity: 3,
+  lifecycle_stage: :published,
+  organizer: u1
+)
 
-# Reviews
-events.each do |event|
-  users.each do |user|
-    Review.create!(
-      user: user,
-      event: event,
-      calification: rand(1.0..5.0),
-      comment: "Great event!"
-    )
-  end
-end
+# Evento LLENO (para waiting list)
+e2 = Event.create!(
+  title: "Music Festival",
+  description: "Live music event",
+  category: "Music",
+  venue: "Main Hall",
+  start_date: Time.current + 1.day,
+  end_date: Time.current + 2.days,
+  maximum_capacity: 2,
+  available_capacity: 0,
+  lifecycle_stage: :published,
+  organizer: u2
+)
+
+# Evento COMPLETADO (para reviews)
+e3 = Event.create!(
+  title: "Sports Meetup",
+  description: "Outdoor sports",
+  category: "Sports",
+  venue: "Campus Field",
+  start_date: Time.current - 5.days,
+  end_date: Time.current - 4.days,
+  maximum_capacity: 5,
+  available_capacity: 5,
+  lifecycle_stage: :completed,
+  organizer: u3
+)
+
+puts "Creating registrations..."
+
+# Evento 1 (normal)
+Registration.create!(user: u1, event: e1, status: :confirmed)
+Registration.create!(user: u2, event: e1, status: :confirmed)
+
+# Evento 2 (lleno + waiting list)
+Registration.create!(user: u1, event: e2, status: :confirmed)
+Registration.create!(user: u2, event: e2, status: :confirmed)
+Registration.create!(user: u3, event: e2, status: :waiting)
+
+# Evento 3 (completado)
+Registration.create!(user: u1, event: e3, status: :confirmed)
+Registration.create!(user: u2, event: e3, status: :confirmed)
+
+puts "Creating reviews..."
+
+Review.create!(
+  user: u1,
+  event: e3,
+  rating: 5,
+  comment: "Amazing event!"
+)
+
+Review.create!(
+  user: u2,
+  event: e3,
+  rating: 4,
+  comment: "Really enjoyed it"
+)
+
+puts "Seeding completed!"

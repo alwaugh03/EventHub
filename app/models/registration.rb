@@ -11,7 +11,6 @@ class Registration < ApplicationRecord
   validates :user_id, uniqueness: { scope: :event_id }
 
   validate :event_not_started
-  validate :assign_status_based_on_capacity
 
   before_create :set_status
 

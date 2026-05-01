@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_01_221434) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_01_234021) do
   create_table "events", force: :cascade do |t|
     t.integer "available_capacity"
     t.string "category"
@@ -25,6 +25,17 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_01_221434) do
     t.datetime "updated_at", null: false
     t.string "venue"
     t.index ["organizer_id"], name: "index_events_on_organizer_id"
+  end
+
+  create_table "registrations", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "event_id", null: false
+    t.datetime "registered_at"
+    t.integer "status"
+    t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.index ["event_id"], name: "index_registrations_on_event_id"
+    t.index ["user_id"], name: "index_registrations_on_user_id"
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -51,6 +62,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_01_221434) do
   end
 
   add_foreign_key "events", "users", column: "organizer_id"
+  add_foreign_key "registrations", "events"
+  add_foreign_key "registrations", "users"
   add_foreign_key "reviews", "administrators"
   add_foreign_key "reviews", "events"
   add_foreign_key "reviews", "users"
