@@ -2,23 +2,47 @@
 
 <p><%= @event.description %></p>
 
-<h3>Users</h3>
+<p><strong>Category:</strong> <%= @event.category %></p>
+<p><strong>Venue:</strong> <%= @event.venue %></p>
+
+<p>
+  <strong>Dates:</strong>
+  <%= @event.start_date %> - <%= @event.end_date %>
+</p>
+
+<p><strong>Status:</strong> <%= @event.lifecycle_stage %></p>
+
+<p>
+  <strong>Capacity:</strong>
+  <%= @event.available_capacity %> /
+  <%= @event.maximum_capacity %>
+</p>
+
+<p>
+  <strong>Organizer:</strong>
+  <%= @event.organizer.email %>
+</p>
+
+<hr>
+
+<h3>Registrations</h3>
 <ul>
-  <% @event.users.each do |user| %>
-    <li><%= user.first_name %></li>
+  <% @event.registrations.each do |registration| %>
+    <li>
+      <%= registration.user.email %> - <%= registration.status %>
+    </li>
   <% end %>
 </ul>
 
-<h3>Administrators</h3>
-<ul>
-  <% @event.administrators.each do |admin| %>
-    <li><%= admin.first_name %></li>
-  <% end %>
-</ul>
+<hr>
 
 <h3>Reviews</h3>
 <ul>
   <% @event.reviews.each do |review| %>
-    <li><%= review.comment %> - <%= review.calification %></li>
+    <li>
+      <strong><%= review.user.email %></strong>:
+      <%= review.rating %>/5
+      - <%= review.comment %>
+    </li>
   <% end %>
 </ul>

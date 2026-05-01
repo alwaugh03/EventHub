@@ -15,13 +15,28 @@ class Event < ApplicationRecord
 
   validates :title, :start_date, :end_date, :maximum_capacity, presence: true
 
+  validates :maximum_capacity, numericality: { greater_than: 0 }
+  validates :available_capacity, numericality: { greater_than_or_equal_to: 0 }
+
   validate :end_date_after_start
+  validate :capacity_consistency
+
+  def full?
+  available_capacity <= 0
+  end
 
   def end_date_after_start
     return if end_date.blank? || start_date.blank?
 
     if end_date < start_date
       errors.add(:end_date, "must be after start date")
+    end
+  end
+
+  def capacity_consistency
+    if available_capacity.present? && maximum_capacity.present? &&
+       available_capacity > maximum_capacity
+      errors.add(:available_capacity, "cannot exceed maximum capacity")
     end
   end
 end

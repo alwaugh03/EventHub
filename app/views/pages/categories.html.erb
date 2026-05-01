@@ -1,2 +1,8 @@
 <h1>Categories</h1>
-<p>This is the Categories page</p>
+
+<ul>
+  <li><%= link_to "All Events", events_path %></li>
+  <li><%= link_to "Sports", events_path(category: "Sports") %></li>
+  <li><%= link_to "Music", events_path(category: "Music") %></li>
+  <li><%= link_to "Tech", events_path(category: "Tech") %></li>
+</ul>
