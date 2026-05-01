@@ -1,0 +1,24 @@
+<h1><%= @event.title %></h1>
+
+<p><%= @event.description %></p>
+
+<h3>Users</h3>
+<ul>
+  <% @event.users.each do |user| %>
+    <li><%= user.first_name %></li>
+  <% end %>
+</ul>
+
+<h3>Administrators</h3>
+<ul>
+  <% @event.administrators.each do |admin| %>
+    <li><%= admin.first_name %></li>
+  <% end %>
+</ul>
+
+<h3>Reviews</h3>
+<ul>
+  <% @event.reviews.each do |review| %>
+    <li><%= review.comment %> - <%= review.calification %></li>
+  <% end %>
+</ul>

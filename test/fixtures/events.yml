@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  description: MyString
+  category: MyString
+  venue: MyString
+  start_date: 2026-05-01 18:13:39
+  end_date: 2026-05-01 18:13:39
+  available_capacity: 1
+  maximum_capacity: 1
+  lifecycle_stage: 1
+
+two:
+  title: MyString
+  description: MyString
+  category: MyString
+  venue: MyString
+  start_date: 2026-05-01 18:13:39
+  end_date: 2026-05-01 18:13:39
+  available_capacity: 1
+  maximum_capacity: 1
+  lifecycle_stage: 1
