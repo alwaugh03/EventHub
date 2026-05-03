@@ -31,7 +31,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_01_234021) do
     t.datetime "created_at", null: false
     t.integer "event_id", null: false
     t.datetime "registered_at"
-    t.integer "status"
+    t.integer "status", default: 0
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false
     t.index ["event_id"], name: "index_registrations_on_event_id"
@@ -39,14 +39,12 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_01_234021) do
   end
 
   create_table "reviews", force: :cascade do |t|
-    t.integer "administrator_id", null: false
-    t.float "calification"
-    t.string "comment"
+    t.text "comment"
     t.datetime "created_at", null: false
     t.integer "event_id", null: false
+    t.integer "rating"
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false
-    t.index ["administrator_id"], name: "index_reviews_on_administrator_id"
     t.index ["event_id"], name: "index_reviews_on_event_id"
     t.index ["user_id"], name: "index_reviews_on_user_id"
   end
@@ -64,7 +62,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_01_234021) do
   add_foreign_key "events", "users", column: "organizer_id"
   add_foreign_key "registrations", "events"
   add_foreign_key "registrations", "users"
-  add_foreign_key "reviews", "administrators"
   add_foreign_key "reviews", "events"
   add_foreign_key "reviews", "users"
 end

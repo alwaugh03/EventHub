@@ -12,7 +12,7 @@ u3 = User.create!(email: "carol@test.com", role: :regular)
 
 puts "Creating events..."
 
-# Evento FUTURO con cupo disponible
+
 e1 = Event.create!(
   title: "Tech Conference",
   description: "A great tech event",
@@ -26,7 +26,7 @@ e1 = Event.create!(
   organizer: u1
 )
 
-# Evento LLENO (para waiting list)
+
 e2 = Event.create!(
   title: "Music Festival",
   description: "Live music event",
@@ -40,7 +40,7 @@ e2 = Event.create!(
   organizer: u2
 )
 
-# Evento COMPLETADO (para reviews)
+
 e3 = Event.create!(
   title: "Sports Meetup",
   description: "Outdoor sports",
@@ -56,19 +56,20 @@ e3 = Event.create!(
 
 puts "Creating registrations..."
 
-# Evento 1 (normal)
+
 Registration.create!(user: u1, event: e1, status: :confirmed)
 Registration.create!(user: u2, event: e1, status: :confirmed)
 
-# Evento 2 (lleno + waiting list)
 Registration.create!(user: u1, event: e2, status: :confirmed)
 Registration.create!(user: u2, event: e2, status: :confirmed)
 Registration.create!(user: u3, event: e2, status: :waiting)
 
-# Evento 3 (completado)
-Registration.create!(user: u1, event: e3, status: :confirmed)
-Registration.create!(user: u2, event: e3, status: :confirmed)
 
+r1 = Registration.new(user: u1, event: e3, status: :confirmed)
+r1.save(validate: false)
+
+r2 = Registration.new(user: u2, event: e3, status: :confirmed)
+r2.save(validate: false)
 puts "Creating reviews..."
 
 Review.create!(

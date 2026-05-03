@@ -40,9 +40,7 @@
 <ul>
   <% @event.reviews.each do |review| %>
     <li>
-      <strong><%= review.user.email %></strong>:
-      <%= review.rating %>/5
-      - <%= review.comment %>
+      <%= review.comment %> - <%= review.rating %>
     </li>
   <% end %>
 </ul>
