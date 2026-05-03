@@ -5,6 +5,8 @@ Repository made by Alfonso Waugh and Francisco Langlois
 
 This repository contains: 
 
-* All the ruby files to be run in a single folder
+* All the ruby files to be run in their respective folders
 
-* A folder containing the aditional documents required for the first assignment 
+* An aditional folder containing the documents required for all asignments, this includes current and past model diagrams labeled by version
+
+To run, all the contents of the repository should be put in a single folder and run there
