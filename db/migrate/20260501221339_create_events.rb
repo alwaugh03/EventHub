@@ -4,14 +4,15 @@ class CreateEvents < ActiveRecord::Migration[8.1]
       t.string :title
       t.string :description
       t.string :category
-      t.string :venue
+
+      t.string :venue 
       t.datetime :start_date
       t.datetime :end_date
       t.integer :available_capacity
       t.integer :maximum_capacity
       t.integer :lifecycle_stage
 
-      t.references :organizer, null: false, foreign_key: { to_table: :users }
+      #t.references :organizer, null: false, foreign_key: { to_table: :users }
 
       t.timestamps
     end

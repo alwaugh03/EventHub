@@ -1,0 +1,24 @@
+<% if @event.errors.any? %>
+  <div style="background: red; color: white; padding: 10px; margin: 10px 0;">
+    <h4>ERRORES QUE IMPIDEN GUARDAR:</h4>
+    <ul>
+      <% @event.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<div style="background: lightblue; padding: 10px; margin: 10px 0; border: 2px solid blue;">
+  <strong>DEBUG INFO:</strong><br>
+  @event: <%= @event.inspect %><br>
+  @event.new_record?: <%= @event.new_record? %><br>
+  @event.valid?: <%= @event.valid? if @event %><br>
+  Errores: <%= @event.errors.full_messages if @event %>
+</div>
+
+<div class="container mt-4">
+  <h1>New Event</h1>
+  <%= render 'form', event: @event %>
+  <%= link_to 'Return', events_path, class: "btn btn-secondary mt-3" %>
+</div>
