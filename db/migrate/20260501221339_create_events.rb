@@ -3,9 +3,9 @@ class CreateEvents < ActiveRecord::Migration[8.1]
     create_table :events do |t|
       t.string :title
       t.string :description
-      t.integer :category
+      t.string :category
 
-      t.integer :venue 
+      t.string :venue 
       t.datetime :start_date
       t.datetime :end_date
       t.integer :available_capacity

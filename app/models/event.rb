@@ -5,6 +5,8 @@ class Event < ApplicationRecord
   has_many :users, through: :registrations
   has_many :reviews
 
+  has_rich_text :description
+
   enum :lifecycle_stage, {
     draft: 0,
     published: 1,
