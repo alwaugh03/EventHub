@@ -6,12 +6,12 @@
 
     <div class="mb-3">
         <%= f.label :category, class: 'form-label' %>
-        <%= f.select :category, options_for_select([['Tech', 'tech'], ['Music', 'music'], ['Sports', 'sports']], @event.category), {}, class: 'form-select' %>
+        <%= f.select :category, options_for_select(['Tech', 'Music', 'Sports'], @event.category), {}, class: 'form-select' %>
     </div>
 
     <div class="mb-3">
         <%= f.label :venue, class: 'form-label' %>
-        <%= f.select :venue, options_for_select([['Auditorium', 'auditorium'], ['Main Hall', 'main_hall'], ['Campus Field', 'campus_field']], @event.venue), {}, class: 'form-select' %>
+        <%= f.select :venue, options_for_select(['Auditorium', 'Main Hall','Campus Field'], @event.venue), {}, class: 'form-select' %>
     </div>
 
     <div class="mb-3">

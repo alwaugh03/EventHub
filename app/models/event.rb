@@ -1,12 +1,9 @@
 class Event < ApplicationRecord
 
-  #belongs_to :user
+  belongs_to :organizer, class_name: "User", optional: true
   has_many :registrations
   has_many :users, through: :registrations
   has_many :reviews
-
-  before_validation :normalize_category
-  before_validation :normalize_venue
 
   enum :lifecycle_stage, {
     draft: 0,
@@ -14,19 +11,6 @@ class Event < ApplicationRecord
     ongoing: 2,
     completed: 3,
     cancelled: 4
-  }
-
-
-  enum :category, {
-    tech: 0,
-    music: 1,
-    sports: 2
-  }
-
-  enum :venue, {
-    auditorium: 0,
-    main_hall: 1,
-    campus_field: 2
   }
 
   validates :title, :start_date, :end_date, :maximum_capacity, presence: true
@@ -56,30 +40,6 @@ class Event < ApplicationRecord
     if available_capacity.present? && maximum_capacity.present? &&
        available_capacity > maximum_capacity
       errors.add(:available_capacity, "cannot exceed maximum capacity")
-    end
-  end
-
-  def normalize_category
-    case venue.to_s.downcase
-    when "Tech"
-      self.venue = :tech
-    when "Music"
-      self.venue = :music
-    when "Sports"
-      self.venue = :sports
-    else
-    end
-  end
-  
-  def normalize_venue
-    case venue.to_s.downcase
-    when "Auditorium"
-      self.venue = :auditorium
-    when "Main Hall"
-      self.venue = :main_hall
-    when "Campus Field"
-      self.venue = :campus_field
-    else
     end
   end
 end
