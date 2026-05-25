@@ -22,7 +22,7 @@ end
         flash[:notice] = "The event has been created correctly"
         redirect_to @event
     else
-        flash[:alert] = "The event has not created correctrly"
+        flash[:alert] = "The event could not be created"
         render :new, status: :unprocessable_entity
     end
   end
@@ -36,16 +36,21 @@ end
         flash[:notice] = "The event has been updated correctly"
         redirect_to @event
     else
-        flash[:alert] = "The event has not updated correctrly"
+        flash[:alert] = "The event could not be updated"
         render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
-    flash[:notice] = "The event has been deleted correctly"
+    
     @event = Event.find(params[:id])
-    @event.destroy
-    redirect_to events_url
+    if @event.destroy
+      flash[:notice] = "The event has been deleted correctly"
+      redirect_to events_url
+    else
+      flash[:alert] = "The event could not be deleted"
+      redirect_to events_url
+    end
   end
 
   private

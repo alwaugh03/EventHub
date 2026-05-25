@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root "pages#home"
 
-  get "categories", to: "pages#categories"
+#  get "categories", to: "pages#categories"
   get "login", to: "pages#login"
   get "signup", to: "pages#signup"
 
@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   end
 
   resources :events
+  resources :categories
+  resources :venues
   resources :users, only: [:index, :show]
   resources :registrations
   resources :reviews

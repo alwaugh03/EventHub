@@ -88,7 +88,7 @@ e2 = Event.create!(
   venue: main_hall,
   start_date: Time.current + 1.day,
   end_date: Time.current + 2.days,
-  maximum_capacity: 2,
+  maximum_capacity: 5,
   available_capacity: 0,
   lifecycle_stage: :published,
   organizer: u2

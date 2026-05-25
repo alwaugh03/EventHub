@@ -21,7 +21,7 @@ class ReviewsController < ApplicationController
         flash[:notice] = "The review has been created correctrly"
         redirect_to @event
     else
-        flash[:alert] = "The review has not created correctrly"
+        flash[:alert] = "The review could not be created"
         render :new, status: :unprocessable_entity
     end
   end
@@ -35,7 +35,7 @@ class ReviewsController < ApplicationController
         flash[:notice] = "The review has been updated correctrly"
         redirect_to @review
     else
-        flash[:alert] = "The review could not updated"
+        flash[:alert] = "The review could not be updated"
         render :edit, status: :unprocessable_entity
     end
   end
@@ -49,6 +49,7 @@ class ReviewsController < ApplicationController
     else 
       flash[:alert] = "The review could not be destroyed"
       redirect_to event_path(event)
+    end 
   end
 
  private

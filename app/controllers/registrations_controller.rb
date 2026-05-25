@@ -22,7 +22,7 @@ class RegistrationsController < ApplicationController
         flash[:notice] = "The registration has been created correctrly"
         redirect_to @event
     else
-        flash[:alert] = "The registration has not created correctrly"
+        flash[:alert] = "The registration could not be created"
         render :new, status: :unprocessable_entity
     end
   end
@@ -37,17 +37,20 @@ class RegistrationsController < ApplicationController
         flash[:notice] = "The registration has been updated correctrly"
         redirect_to @registration
     else
-        flash[:alert] = "The registration has not created correctrly"
+        flash[:alert] = "The registration culd not be created"
         render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
-    flash[:notice] = "The registration has been destroyed correctrly"
     @registration= Registration.find(params[:id])
     event = @registration.event 
-    @registration.destroy
-    redirect_to event_path(event)
+    if @registration.destroy
+      flash[:notice] = "The registration has been destroyed correctrly"
+      redirect_to event_path(event)
+    else
+      flash[:alert] = "The registration could not  be destroyed"
+    end 
   end 
 
   private

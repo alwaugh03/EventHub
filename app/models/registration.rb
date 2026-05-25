@@ -13,8 +13,8 @@ class Registration < ApplicationRecord
   validate :event_not_started, on: :create
 
   before_create :set_status
-  after_create :decrease_available_capacity
-  after_destroy :increase_available_capacity
+  after_create :increase_available_capacity
+  after_destroy :decrease_available_capacity
 
   private
 
