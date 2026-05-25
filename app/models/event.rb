@@ -1,14 +1,18 @@
 class Event < ApplicationRecord
 
   belongs_to :organizer, class_name: "User", optional: true
+
+  belongs_to :category
+  belongs_to :venue
+
   has_many :registrations
   has_many :users, through: :registrations
   has_many :reviews
 
   has_rich_text :description
 
-  before_create :set_available_capacity 
-  before_create :set_published_status 
+  before_create :set_available_capacity
+  before_create :set_published_status
 
   enum :lifecycle_stage, {
     draft: 0,

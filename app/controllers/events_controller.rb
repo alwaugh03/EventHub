@@ -50,6 +50,6 @@ end
   end
 
   def event_params
-    params.require(:event).permit(:title, :category, :venue, :start_date, :end_date, :maximum_capacity, :description)
+    params.require(:event).permit(:title, :category_id, :venue_id, :start_date, :end_date, :maximum_capacity, :description)
   end
 end

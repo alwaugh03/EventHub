@@ -5,8 +5,8 @@ class Review < ApplicationRecord
   validates :rating, presence: true, inclusion: { in: 1..5, message: "Rating must be between 1 and 5"}
   validates :comment, presence: true
 
-  validate :user_attended_event
-  validate :event_must_be_completed
+ # validate :user_attended_event
+ # validate :event_must_be_completed
 
   def user_attended_event
     unless event.registrations.exists?(user_id: user_id, status: :completed)

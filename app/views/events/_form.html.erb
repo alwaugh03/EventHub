@@ -4,15 +4,22 @@
         <%= f.text_field :title, class: 'form-control' %>
     </div>
 
-    <div class="mb-3">
-        <%= f.label :category, class: 'form-label' %>
-        <%= f.select :category, options_for_select(['Tech', 'Music', 'Sports'], @event.category), {}, class: 'form-select' %>
-    </div>
+<div class="mb-3">
+    <%= f.label :category_id, "Category", class: 'form-label' %>
 
-    <div class="mb-3">
-        <%= f.label :venue, class: 'form-label' %>
-        <%= f.select :venue, options_for_select(['Auditorium', 'Main Hall','Campus Field'], @event.venue), {}, class: 'form-select' %>
-    </div>
+    <%= f.collection_select :category_id,Category.all,:id,:name,{ prompt: "Select a category" },{ class: 'form-select' } %>
+</div>
+
+<div class="mb-3">
+    <%= f.label :venue_id, "Venue", class: 'form-label' %>
+
+    <%= f.collection_select :venue_id,Venue.all,:id,:name,{ prompt: "Select a venue" },{ class: 'form-select' } %>
+</div>
+
+<div class="mb-3">
+    <%= f.label :maximum_capacity, class: 'form-label' %>
+    <%= f.number_field :maximum_capacity, class: 'form-control' %>
+</div>
 
     <div class="mb-3">
         <%= f.label :start_date, class: 'form-label' %>
@@ -22,11 +29,6 @@
     <div class="mb-3">
         <%= f.label :end_date, class: 'form-label' %>
         <%= f.datetime_local_field :end_date, class: 'form-control' %>
-    </div>
-
-    <div class="mb-3">
-        <%= f.label :maximum_capacity, class: 'form-label' %>
-        <%= f.number_field :maximum_capacity, class: 'form-control' %>
     </div>
 
     <div class="mb-3">
