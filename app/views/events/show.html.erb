@@ -45,14 +45,14 @@
     <li>
       <%= review.comment %> - <%= review.rating %>
     </li>
-    <%= link_to "Edit", review_path(review), class: "btn btn-sm btn-warning" %>
+    <%= link_to "Edit", edit_review_path(review), class: "btn btn-sm btn-warning" %>
   <% end %>
 
 </ul>
 
 <div class="btn-group" role="group">
-  <%= link_to "Edit", event_path(@event), class: "btn btn-sm btn-warning" %>
-  <%= button_to "Delete", event_path(@event), 
+  <%= link_to "Edit", edit_event_path(@event), class: "btn btn-sm btn-warning" %>
+  <%= link_to "Delete", event_path(@event), 
                 method: :delete, 
                 data: { turbo_confirm: "Are you sure?" }, 
                 class: "btn btn-sm btn-danger" %>
