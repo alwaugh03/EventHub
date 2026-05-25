@@ -16,30 +16,12 @@ end
   end
 
   def create
-    puts "=" * 60
-    puts "MÉTODO CREATE EJECUTADO"
-    puts "=" * 60
-    puts "Params recibidos: #{params.inspect}"
-    puts "Params de event: #{params[:event].inspect}"
-    puts "=" * 60
-    
     @event = Event.new(event_params)
-    
     if @event.save
-      puts "✅ EVENTO GUARDADO EXITOSAMENTE"
-      redirect_to @event, notice: 'Evento creado exitosamente.'
+        redirect_to @event
     else
-      puts "❌ ERRORES DE VALIDACIÓN:"
-      puts @event.errors.full_messages
-      puts "=" * 60
-      render :new, status: :unprocessable_entity
+        render :new, status: :unprocessable_entity
     end
-    #@event = Event.new(event_params)
-    #if @event.save
-    #    redirect_to @event
-    #else
-    #    render :new, status: :unprocessable_entity
-    #end
   end
 
   def edit
