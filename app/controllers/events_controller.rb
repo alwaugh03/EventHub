@@ -19,8 +19,10 @@ end
     @event = Event.new(event_params)
     @event.organizer = User.first
     if @event.save
+        notice: "Event created successfully."
         redirect_to @event
     else
+        alert: @event.errors.full_messages.to_sentence
         render :new, status: :unprocessable_entity
     end
   end
@@ -31,16 +33,24 @@ end
 
   def update
     if @event.update(event_params)
+        notice: "Event updated successfully."
         redirect_to @event
     else
+        alert: @event.errors.full_messages.to_sentence
         render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
+    
     @event = Event.find(params[:id])
-    @event.destroy
-    redirect_to events_url
+    if @event.destroy
+      redirect_to events_url,
+      notice: "Event deleted successfully."
+    else
+      redirect_to events_url,
+      alert: @event.errors.full_messages.to_sentence
+    end
   end
 
   private

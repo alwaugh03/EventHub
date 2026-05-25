@@ -19,8 +19,10 @@ class RegistrationsController < ApplicationController
     @registration = @event.registrations.new(user: user, status: :confirmed)
    
     if @registration.save
+        notice: "Registration created successfully."
         redirect_to @event
     else
+        alert: @registration.errors.full_messages.to_sentence
         render :new, status: :unprocessable_entity
     end
   end
@@ -31,8 +33,10 @@ class RegistrationsController < ApplicationController
 
   def update
     if @registration.update(registration_params)
+        notice: "Registration updated successfully."
         redirect_to @registration
     else
+        alert: @registration.errors.full_messages.to_sentence
         render :edit, status: :unprocessable_entity
     end
   end
@@ -40,8 +44,13 @@ class RegistrationsController < ApplicationController
   def destroy
     @registration= Registration.find(params[:id])
     event = @registration.event 
-    @registration.destroy
-    redirect_to event_path(event)
+    if @registration.destroy
+      redirect_to event_path(event),
+       notice: "Registration deleted successfully."
+    else
+      redirect_to event_path(event),
+      alert: @registration.errors.full_messages.to_sentence
+    end 
   end 
 
   private

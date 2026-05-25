@@ -18,8 +18,10 @@ class ReviewsController < ApplicationController
     @review = @event.reviews.new(review_params)
     @review.user = User.first
     if @review.save
+        notice: "Review created successfully."
         redirect_to @event
     else
+        alert: @review.errors.full_messages.to_sentence
         render :new, status: :unprocessable_entity
     end
   end
@@ -30,8 +32,10 @@ class ReviewsController < ApplicationController
 
   def update
     if @review.update(review_params)
+        notice: "Review updated successfully."
         redirect_to @review
     else
+        alert: @review.errors.full_messages.to_sentence
         render :edit, status: :unprocessable_entity
     end
   end
@@ -39,8 +43,13 @@ class ReviewsController < ApplicationController
   def destroy
     @review = Review.find(params[:id])
     event = @review.event 
-    @review.destroy
-    redirect_to event_path(event)
+    if @review.destroy
+      redirect_to event_path(event),
+      notice: "Review deleted successfully."
+    else 
+      redirect_to event_path(event),
+      alert: @review.errors.full_messages.to_sentence
+    end 
   end
 
  private

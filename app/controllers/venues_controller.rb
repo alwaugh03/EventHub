@@ -18,6 +18,7 @@ class VenuesController < ApplicationController
     if @venue.save
       redirect_to @venue, notice: "Venue created successfully."
     else
+      flash.now[:alert] = @venue.errors.full_messages.to_sentence
       render :new, status: :unprocessable_entity
     end
   end
@@ -29,17 +30,16 @@ class VenuesController < ApplicationController
     if @venue.update(venue_params)
       redirect_to @venue, notice: "Venue updated successfully."
     else
+      flash.now[:alert] = @venue.errors.full_messages.to_sentence
       render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
     if @venue.destroy
-      redirect_to venues_path,
-                  notice: "Venue deleted successfully."
+      redirect_to venues_path, notice: "Venue deleted successfully."
     else
-      redirect_to venues_path,
-                  alert: @venue.errors.full_messages.to_sentence
+      redirect_to venues_path, alert: @venue.errors.full_messages.to_sentence 
     end
   end
 
@@ -50,10 +50,6 @@ class VenuesController < ApplicationController
   end
 
   def venue_params
-    params.require(:venue).permit(
-      :name,
-      :address,
-      :capacity
-    )
+    params.require(:venue).permit(:name, :address, :capacity)
   end
 end
