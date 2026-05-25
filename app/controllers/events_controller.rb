@@ -17,6 +17,7 @@ end
 
   def create
     @event = Event.new(event_params)
+    @event.organizer = User.first
     if @event.save
         redirect_to @event
     else
@@ -37,6 +38,7 @@ end
   end
 
   def destroy
+    @event = Event.find(params[:id])
     @event.destroy
     redirect_to events_url
   end

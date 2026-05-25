@@ -7,6 +7,9 @@ class Event < ApplicationRecord
 
   has_rich_text :description
 
+  before_create :set_available_capacity 
+  before_create :set_published_status 
+
   enum :lifecycle_stage, {
     draft: 0,
     published: 1,
@@ -43,5 +46,13 @@ class Event < ApplicationRecord
        available_capacity > maximum_capacity
       errors.add(:available_capacity, "cannot exceed maximum capacity")
     end
+  end
+
+  def set_published_status
+    self.lifecycle_stage = :published
+  end
+
+  def set_available_capacity
+    self.available_capacity = 0
   end
 end

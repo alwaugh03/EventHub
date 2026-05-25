@@ -6,8 +6,13 @@ Rails.application.routes.draw do
   get "signup", to: "pages#signup"
 
 
+  resources :events do
+    resources :reviews
+    resources :registrations, only: [:new, :create, :destroy]
+  end
+
   resources :events
   resources :users, only: [:index, :show]
-  resources :registrations, only: [:index, :show]
+  resources :registrations
   resources :reviews
 end

@@ -1,0 +1,5 @@
+<h1>Register for <%= @event.title %></h1>
+
+<%= render "form", event: @event, registration: @registration %>
+
+<%= link_to "Return", event_path(@event), class: "btn btn-secondary mt-3" %>

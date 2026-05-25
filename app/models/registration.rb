@@ -8,13 +8,24 @@ class Registration < ApplicationRecord
     cancelled: 2
   }
 
-  validates :user_id, uniqueness: { scope: :event_id }
+  validates :user_id, uniqueness: { scope: :event_id, message: "already registered" }
 
-  validate :event_not_started
+  validate :event_not_started, on: :create
 
   before_create :set_status
+  after_create :decrease_available_capacity
+  after_destroy :increase_available_capacity
 
   private
+
+  def decrease_available_capacity
+    event.decrement!(:available_capacity)
+  end
+
+  def increase_available_capacity
+    event.increment!(:available_capacity)
+    promote_from_waitlist
+  end
 
   def event_not_started
     if event.start_date <= Time.current
@@ -23,11 +34,17 @@ class Registration < ApplicationRecord
   end
 
   def set_status
-    if event.available_capacity > 0
+    if event.available_capacity.to_i > 0
       self.status = :confirmed
-      event.available_capacity -= 1
     else
       self.status = :waiting
     end
+  end
+
+  def promote_from_waitlist
+    return unless event.registrations.confirmed.count < event.maximum_capacity
+    
+    next_waiting = event.registrations.waiting.order(:created_at, :id).first
+    next_waiting&.update(status: :confirmed)
   end
 end

@@ -1,0 +1,9 @@
+<%= form_with(model: [event, registration], local: true, data: { turbo: false }) do |f| %>
+  
+  <div class="mb-3">
+    <%= f.label :email, "Your email", class: "form-label" %>
+    <%= f.email_field :email, class: "form-control", required: true, placeholder: "Enter your email" %>
+  </div>
+
+  <%= f.submit "Register for Event", class: "btn btn-primary" %>
+<% end %>

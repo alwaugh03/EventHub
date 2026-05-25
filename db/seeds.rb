@@ -6,9 +6,9 @@ User.destroy_all
 
 puts "Creating users..."
 
-u1 = User.create!(email: "alice@test.com", role: :regular)
-u2 = User.create!(email: "bob@test.com", role: :regular)
-u3 = User.create!(email: "carol@test.com", role: :regular)
+u1 = User.create!(email: "alice@test.com", role: :regular, password: "111111", password_confirmation: "111111")
+u2 = User.create!(email: "bob@test.com", role: :regular, password: "222222", password_confirmation: "222222")
+u3 = User.create!(email: "carol@test.com", role: :regular, password: "333333", password_confirmation:"333333")
 
 puts "Creating events..."
 

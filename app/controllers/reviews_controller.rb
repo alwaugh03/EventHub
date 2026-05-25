@@ -1,5 +1,5 @@
 class ReviewsController < ApplicationController
-  before_action :set_review, only: [:show, :edit, :update, :destroy]
+  before_action :set_review, only: [:show, :edit, :update]
   def index
     @reviews = Review.all
   end
@@ -9,13 +9,16 @@ class ReviewsController < ApplicationController
   end
 
   def new
-    @review = Review.new
+    @event = Event.find(params[:event_id])
+    @review = @event.reviews.new
   end
 
   def create
-    @review = Review.new(event_params)
+    @event = Event.find(params[:event_id])
+    @review = @event.reviews.new(review_params)
+    @review.user = User.first
     if @review.save
-        redirect_to @review
+        redirect_to @event
     else
         render :new, status: :unprocessable_entity
     end
@@ -34,8 +37,10 @@ class ReviewsController < ApplicationController
   end
 
   def destroy
+    @review = Review.find(params[:id])
+    event = @review.event 
     @review.destroy
-    redirect_to review_url
+    redirect_to event_path(event)
   end
 
  private
@@ -45,6 +50,6 @@ class ReviewsController < ApplicationController
   end
 
   def review_params
-    params.require(:review).permit(:rating, :text)
+    params.require(:review).permit(:rating, :comment)
   end
 end
