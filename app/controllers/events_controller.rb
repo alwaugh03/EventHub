@@ -19,8 +19,10 @@ end
     @event = Event.new(event_params)
     @event.organizer = User.first
     if @event.save
+        flash[:notice] = "The event has been created correctly"
         redirect_to @event
     else
+        flash[:alert] = "The event has not created correctrly"
         render :new, status: :unprocessable_entity
     end
   end
@@ -31,13 +33,16 @@ end
 
   def update
     if @event.update(event_params)
+        flash[:notice] = "The event has been updated correctly"
         redirect_to @event
     else
+        flash[:alert] = "The event has not updated correctrly"
         render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
+    flash[:notice] = "The event has been deleted correctly"
     @event = Event.find(params[:id])
     @event.destroy
     redirect_to events_url
