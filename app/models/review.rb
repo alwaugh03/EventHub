@@ -5,9 +5,6 @@ class Review < ApplicationRecord
   validates :rating, presence: true, inclusion: { in: 1..5, message: "Rating must be between 1 and 5"}
   validates :comment, presence: true
 
-#coment the followimg validations before db:seed/db:reset, uncoment after
-#if you dont the seeds crash due to logic errors in the cronology of events that "happen" during the seeds
-
  validate :user_attended_event
  validate :event_must_be_completed
 

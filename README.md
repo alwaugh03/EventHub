@@ -9,4 +9,4 @@ This repository contains:
 
 * An aditional folder containing the documents required for all asignments, this includes current and past model diagrams labeled by version
 
-To run, all the contents of the repository should be put in a single folder and run there, note and follow the comentary in app/models/review.rb for proper validation funtioning
+To run, all the contents of the repository should be put in a single folder and run there
