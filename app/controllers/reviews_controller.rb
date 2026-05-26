@@ -1,61 +1,60 @@
 class ReviewsController < ApplicationController
-  before_action :set_review, only: [:show, :edit, :update]
+  before_action :set_review, only: [:show, :edit, :update, :destroy]
+  before_action :set_event, only: [:new, :create]
+
   def index
     @reviews = Review.all
   end
 
   def show
-    @review = Review.find(params[:id])
   end
 
   def new
-    @event = Event.find(params[:event_id])
     @review = @event.reviews.new
   end
 
   def create
-    @event = Event.find(params[:event_id])
     @review = @event.reviews.new(review_params)
     @review.user = User.first
+    
     if @review.save
-        notice: "Review created successfully."
-        redirect_to @event
+      redirect_to @event, notice: "Review created successfully." 
     else
-        alert: @review.errors.full_messages.to_sentence
-        render :new, status: :unprocessable_entity
+      flash.now[:alert] = @review.errors.full_messages.to_sentence 
+      render :new, status: :unprocessable_entity
     end
   end
 
   def edit
-    @review = Review.find(params[:id])
   end
 
   def update
     if @review.update(review_params)
-        notice: "Review updated successfully."
-        redirect_to @review
+      redirect_to @review, notice: "Review updated successfully." 
     else
-        alert: @review.errors.full_messages.to_sentence
-        render :edit, status: :unprocessable_entity
+      flash.now[:alert] = @review.errors.full_messages.to_sentence 
+      render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
-    @review = Review.find(params[:id])
     event = @review.event 
+    
     if @review.destroy
-      redirect_to event_path(event),
-      notice: "Review deleted successfully."
+      redirect_to event_path(event), notice: "Review deleted successfully." 
     else 
-      redirect_to event_path(event),
-      alert: @review.errors.full_messages.to_sentence
+      redirect_to event_path(event), alert: @review.errors.full_messages.to_sentence  
     end 
   end
 
- private
+  private
 
   def set_review
     @review = Review.find(params[:id])
+  end
+
+  def set_event
+    @event = Event.find(params[:event_id])
   end
 
   def review_params
