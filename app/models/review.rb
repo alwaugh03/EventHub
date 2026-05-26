@@ -12,7 +12,7 @@ class Review < ApplicationRecord
  validate :event_must_be_completed
 
   def user_attended_event
-    unless event.registrations.exists?(user_id: user_id, status: :completed)
+    unless event.registrations.exists?(user_id: user_id)
       errors.add(:base, "User must have attended the event to leave a review")
     end
   end

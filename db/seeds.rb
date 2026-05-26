@@ -99,8 +99,8 @@ e3 = Event.create!(
   description: "Outdoor sports",
   category: sports,
   venue: campus_field,
-  start_date: Time.current - 5.days,
-  end_date: Time.current - 4.days,
+  start_date: Time.current + 3.days,
+  end_date: Time.current + 4.days,
   maximum_capacity: 5,
   available_capacity: 5,
   lifecycle_stage: :completed,
@@ -139,21 +139,23 @@ Registration.create!(
   status: :waiting
 )
 
-r1 = Registration.new(
+Registration.create!(
   user: u1,
   event: e3,
   status: :confirmed
 )
 
-r1.save(validate: false)
-
-r2 = Registration.new(
+Registration.create!(
   user: u2,
   event: e3,
   status: :confirmed
 )
 
-r2.save(validate: false)
+e3.update!(
+  lifecycle_stage: :completed,
+  start_date: Time.current - 2.days,
+  end_date: Time.current - 1.days
+)
 
 puts "Creating reviews..."
 
