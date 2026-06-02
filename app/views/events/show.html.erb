@@ -33,7 +33,7 @@
   <% @event.registrations.each do |registration| %>
     <li>
       <%= registration.user.email %> - <%= registration.status %>
-      <%= button_to "Cancel", event_registration_path(@event, registration), 
+      <%= button_to "Cancel", event_event_registration_path(@event, registration), 
                     method: :delete, 
                     data: { turbo: false, confirm: "Are you sure?" },
                     class: "btn btn-sm btn-danger ms-2" %>

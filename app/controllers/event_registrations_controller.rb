@@ -1,6 +1,6 @@
-class RegistrationsController < ApplicationController
+class EventRegistrationsController < ApplicationController
   before_action :set_registration, only: [:show, :edit, :update, :destroy]
-  before_action :set_event, only: [:new, :create]
+  #before_action :set_event, only: [:new, :create]
 
   def index
     @registrations = Registration.all
@@ -56,9 +56,9 @@ class RegistrationsController < ApplicationController
     @registration = Registration.find(params[:id])
   end
 
-  def set_event
-    @event = Event.find(params[:event_id])
-  end
+  #def set_event
+  #  @event = Event.find(params[:event_id])
+  #end
 
   def registration_params
     params.require(:registration).permit(:email)

@@ -9,13 +9,13 @@ Rails.application.routes.draw do
 
   resources :events do
     resources :reviews
-    resources :registrations, only: [:new, :create, :destroy]
+    resources :event_registrations, only: [:new, :create, :destroy]
   end
 
   resources :events
   resources :categories
   resources :venues
   resources :users, only: [:index, :show]
-  resources :registrations
+  resources :event_registrations
   resources :reviews
 end
