@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  before_action :set_event, only: [:show, :edit, :update, :destroy]
+  #before_action :set_event, only: [:show, :edit, :update, :destroy]
 
   def index
     if params[:category]
@@ -52,9 +52,9 @@ class EventsController < ApplicationController
 
   private
 
-  def set_event
-    @event = Event.find(params[:id])
-  end
+  #def set_event
+  #  @event = Event.find(params[:id])
+  #end
 
   def event_params
     params.require(:event).permit(:title, :category_id, :venue_id, :start_date, :end_date, :maximum_capacity, :description)

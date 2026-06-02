@@ -14,7 +14,9 @@
   "dependencies": {
     "@hotwired/stimulus": "^3.2.2",
     "@hotwired/turbo-rails": "^8.0.23",
+    "@popperjs/core": "^2.11.8",
     "@rails/actiontext": "^8.1.300",
+    "bootstrap": "^5.3.8",
     "trix": "^2.1.19"
   },
   "browserslist": [
