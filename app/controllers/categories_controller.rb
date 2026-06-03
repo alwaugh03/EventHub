@@ -9,10 +9,12 @@ class CategoriesController < ApplicationController
   end
 
   def new
+    before_action :authenticate_user!
     @category = Category.new
   end
 
 def create
+  before_action :authenticate_user!
   @category = Category.new(category_params)
 
   if @category.save
@@ -27,6 +29,7 @@ def create
 end
 
 def update
+  before_action :authenticate_user!
   if @category.update(category_params)
     redirect_to @category,
                 notice: "Category updated successfully."
@@ -39,6 +42,7 @@ def update
 end
 
 def destroy
+  before_action :authenticate_user!
   if @category.destroy
     redirect_to categories_path,
                 notice: "Category deleted successfully."

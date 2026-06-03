@@ -14,10 +14,12 @@ class EventsController < ApplicationController
   end
 
   def new
+    before_action :authenticate_user!
     @event = Event.new
   end
 
   def create
+    before_action :authenticate_user!
     @event = Event.new(event_params)
     @event.organizer = User.first
     
@@ -34,6 +36,7 @@ class EventsController < ApplicationController
   end
 
   def update
+    before_action :authenticate_user!
     if @event.update(event_params)
       redirect_to @event, notice: "Event updated successfully."  
     else
@@ -43,6 +46,7 @@ class EventsController < ApplicationController
   end
 
   def destroy
+    before_action :authenticate_user!
     if @event.destroy
       redirect_to events_url, notice: "Event deleted successfully." 
     else

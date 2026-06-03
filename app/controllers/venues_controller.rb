@@ -9,10 +9,12 @@ class VenuesController < ApplicationController
   end
 
   def new
+    before_action :authenticate_user!
     @venue = Venue.new
   end
 
   def create
+    before_action :authenticate_user!
     @venue = Venue.new(venue_params)
 
     if @venue.save
@@ -27,6 +29,7 @@ class VenuesController < ApplicationController
   end
 
   def update
+    before_action :authenticate_user!
     if @venue.update(venue_params)
       redirect_to @venue, notice: "Venue updated successfully."
     else
@@ -36,6 +39,7 @@ class VenuesController < ApplicationController
   end
 
   def destroy
+    before_action :authenticate_user!
     if @venue.destroy
       redirect_to venues_path, notice: "Venue deleted successfully."
     else

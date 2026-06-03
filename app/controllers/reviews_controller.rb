@@ -10,10 +10,12 @@ class ReviewsController < ApplicationController
   end
 
   def new
+    before_action :authenticate_user!
     @review = @event.reviews.new
   end
 
   def create
+    before_action :authenticate_user!
     @review = @event.reviews.new(review_params)
     @review.user = User.first
     
@@ -29,6 +31,7 @@ class ReviewsController < ApplicationController
   end
 
   def update
+    before_action :authenticate_user!
     if @review.update(review_params)
       redirect_to @review, notice: "Review updated successfully." 
     else
@@ -38,6 +41,7 @@ class ReviewsController < ApplicationController
   end
 
   def destroy
+    before_action :authenticate_user!
     event = @review.event 
     
     if @review.destroy

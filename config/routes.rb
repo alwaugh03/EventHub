@@ -3,8 +3,9 @@ Rails.application.routes.draw do
   root "pages#home"
 
 #  get "categories", to: "pages#categories"
-  get "login", to: "pages#login"
-  get "signup", to: "pages#signup"
+  #get "login", to: "pages#login"
+  #get "signup", to: "pages#signup"
+  get "profile", to: "pages#profile"
 
 
   resources :events do

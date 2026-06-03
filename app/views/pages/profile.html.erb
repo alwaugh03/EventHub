@@ -1,2 +1,18 @@
-<h1>Profile</h1>
-<p>This is the Profile page</p>
+
+<h1 class="mb-4">Profile</h1>
+<div class="mb-3">
+<h3><%= current_user.first_name %> <%= current_user.last_name %></h3>
+<h5 class="text-muted"><%= current_user.email %></h5>
+</div>
+
+<div>
+<%= link_to "Edit Profile", edit_user_registration_path, class: "btn btn-primary" %>
+<%= link_to "Cerrar sesión", destroy_user_session_path, 
+    method: :delete, 
+    data: { turbo_method: :delete },
+    class: "btn btn-warning" %>
+<%= link_to "Delete Profile", user_registration_path, 
+    method: :delete,
+    class: "btn btn-danger" %>
+</div>
+  

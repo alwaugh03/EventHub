@@ -1,6 +1,22 @@
 <h2 class="mb-4">Log in</h2>
 
 <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "needs-validation" }) do |f| %>
+  
+   <div class="field">
+    <%= f.label :first_name %>
+    <%= f.text_field :first_name, class: "form-control" %>
+  </div>
+
+   <div class="field">
+    <%= f.label :last_name %>
+    <%= f.text_field :last_name, class: "form-control" %>
+  </div>
+
+   <div class="field">
+    <%= f.label :phone %>
+    <%= f.text_field :phone, class: "form-control" %>
+  </div>
+
   <div class="mb-3">
     <%= f.label :email, class: "form-label" %>
     <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
