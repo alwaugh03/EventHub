@@ -1,5 +1,6 @@
 class VenuesController < ApplicationController
   before_action :set_venue, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, except: [:index, :show]
 
   def index
     @venues = Venue.all
@@ -9,13 +10,13 @@ class VenuesController < ApplicationController
   end
 
   def new
-    before_action :authenticate_user!
     @venue = Venue.new
+    authorize! :create, @venue
   end
 
   def create
-    before_action :authenticate_user!
     @venue = Venue.new(venue_params)
+    authorize! :create, @venue
 
     if @venue.save
       redirect_to @venue, notice: "Venue created successfully."
@@ -26,10 +27,11 @@ class VenuesController < ApplicationController
   end
 
   def edit
+    authorize! :update, @venue
   end
 
   def update
-    before_action :authenticate_user!
+    authorize! :update, @venue
     if @venue.update(venue_params)
       redirect_to @venue, notice: "Venue updated successfully."
     else
@@ -39,7 +41,7 @@ class VenuesController < ApplicationController
   end
 
   def destroy
-    before_action :authenticate_user!
+    authorize! :destroy, @venue
     if @venue.destroy
       redirect_to venues_path, notice: "Venue deleted successfully."
     else

@@ -1,6 +1,7 @@
 class ReviewsController < ApplicationController
   before_action :set_review, only: [:show, :edit, :update, :destroy]
   before_action :set_event, only: [:new, :create]
+  before_action :authenticate_user!, except: [:index, :show]
 
   def index
     @reviews = Review.all
@@ -10,13 +11,13 @@ class ReviewsController < ApplicationController
   end
 
   def new
-    before_action :authenticate_user!
     @review = @event.reviews.new
+    authorize! :create, @review
   end
 
   def create
-    before_action :authenticate_user!
     @review = @event.reviews.new(review_params)
+    authorize! :create, @review
     @review.user = User.first
     
     if @review.save
@@ -28,10 +29,11 @@ class ReviewsController < ApplicationController
   end
 
   def edit
+    authorize! :update, @review
   end
 
   def update
-    before_action :authenticate_user!
+    authorize! :update, @review
     if @review.update(review_params)
       redirect_to @review, notice: "Review updated successfully." 
     else
@@ -41,7 +43,7 @@ class ReviewsController < ApplicationController
   end
 
   def destroy
-    before_action :authenticate_user!
+    authorize! :destroy, @review
     event = @review.event 
     
     if @review.destroy

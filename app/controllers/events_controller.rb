@@ -1,5 +1,6 @@
 class EventsController < ApplicationController
-  #before_action :set_event, only: [:show, :edit, :update, :destroy]
+  before_action :set_event, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, except: [:index, :show]
 
   def index
     if params[:category]
@@ -9,20 +10,18 @@ class EventsController < ApplicationController
     end
   end
 
-  def show
-    @event = Event.find(params[:id])  
+  def show  
   end
 
   def new
-    before_action :authenticate_user!
     @event = Event.new
+    authorize! :create, @event
   end
 
   def create
-    before_action :authenticate_user!
     @event = Event.new(event_params)
     @event.organizer = User.first
-    
+    authorize! :create, @event
     if @event.save
       redirect_to @event, notice: "Event created successfully."  
     else
@@ -32,11 +31,11 @@ class EventsController < ApplicationController
   end
 
   def edit
-   
+    authorize! :update, @event
   end
 
   def update
-    before_action :authenticate_user!
+    authorize! :update, @event
     if @event.update(event_params)
       redirect_to @event, notice: "Event updated successfully."  
     else
@@ -46,7 +45,7 @@ class EventsController < ApplicationController
   end
 
   def destroy
-    before_action :authenticate_user!
+    authorize! :destroy, @event
     if @event.destroy
       redirect_to events_url, notice: "Event deleted successfully." 
     else
@@ -56,9 +55,9 @@ class EventsController < ApplicationController
 
   private
 
-  #def set_event
-  #  @event = Event.find(params[:id])
-  #end
+  def set_event
+    @event = Event.find(params[:id])
+  end
 
   def event_params
     params.require(:event).permit(:title, :category_id, :venue_id, :start_date, :end_date, :maximum_capacity, :description)

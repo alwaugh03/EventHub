@@ -1,6 +1,7 @@
 class EventRegistrationsController < ApplicationController
   before_action :set_registration, only: [:show, :edit, :update, :destroy]
-  #before_action :set_event, only: [:new, :create]
+  before_action :set_event, only: [:new, :create]
+  before_action :authenticate_user!
 
   def index
     @registrations = Registration.all
@@ -10,12 +11,12 @@ class EventRegistrationsController < ApplicationController
   end
 
   def new
-    @event = Event.find(params[:event_id])
     @registration = @event.registrations.new
+    authorize! :create, @registration
   end
 
   def create
-    @event = Event.find(params[:event_id])
+    authorize! :create, @registration
     email = params[:registration][:email]
     user = User.find_by(email: email)
     @registration = @event.registrations.new(user: user, status: :confirmed)
@@ -29,9 +30,11 @@ class EventRegistrationsController < ApplicationController
   end
 
   def edit
+    authorize! :update, @registration
   end
 
   def update
+    authorize! :update, @registration
     if @registration.update(registration_params)
       redirect_to @registration, notice: "Registration updated successfully." 
     else
@@ -41,6 +44,7 @@ class EventRegistrationsController < ApplicationController
   end
 
   def destroy
+    authorize! :destroy, @registration
     event = @registration.event 
     
     if @registration.destroy
@@ -56,9 +60,9 @@ class EventRegistrationsController < ApplicationController
     @registration = Registration.find(params[:id])
   end
 
-  #def set_event
-  #  @event = Event.find(params[:event_id])
-  #end
+  def set_event
+    @event = Event.find(params[:event_id])
+  end
 
   def registration_params
     params.require(:registration).permit(:email)
