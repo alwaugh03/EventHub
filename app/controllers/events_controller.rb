@@ -20,7 +20,7 @@ class EventsController < ApplicationController
 
   def create
     @event = Event.new(event_params)
-    @event.organizer = User.first
+    @event.organizer = current_user
     authorize! :create, @event
     if @event.save
       redirect_to @event, notice: "Event created successfully."  

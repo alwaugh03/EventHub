@@ -27,16 +27,18 @@
 
 <h3>Registrations</h3>
   <% if @event.lifecycle_stage == :published %>
-    <%= link_to "Register", new_event_registration_path(@event), class: "btn btn-primary" %>
+    <%= link_to "Register", new_event_event_registration_path(@event), class: "btn btn-primary" %>
   <% end %>
 <ul>
   <% @event.registrations.each do |registration| %>
     <li>
       <%= registration.user.email %> - <%= registration.status %>
-      <%= button_to "Cancel", event_event_registration_path(@event, registration), 
-                    method: :delete, 
-                    data: { turbo: false, confirm: "Are you sure?" },
-                    class: "btn btn-sm btn-danger ms-2" %>
+      <% if can? :destroy, registration %>
+        <%= button_to "Cancel", event_event_registration_path(@event, registration), 
+                      method: :delete, 
+                      data: { turbo: false, confirm: "Are you sure?" },
+                      class: "btn btn-sm btn-danger ms-2" %>
+      <% end %>
     </li>
     
   <% end %>
@@ -56,11 +58,13 @@
       <%= review.comment %> - <%= review.rating %>
     </li>
     <div>
-    <%= button_to "Delete", review_path(review), 
-                method: :delete, 
-                data: { turbo: false },
-                class: "btn btn-sm btn-danger",
-                form_class: "d-inline-block" %>
+    <% if can? :destroy, review %>
+      <%= button_to "Delete", review_path(review), 
+                  method: :delete, 
+                  data: { turbo: false },
+                  class: "btn btn-sm btn-danger",
+                  form_class: "d-inline-block" %>
+    <% end %>
     </div>
   <% end %>
 
@@ -68,10 +72,15 @@
 
 <div>
 <h3>Event</h3>
-  <%= link_to "Edit", edit_event_path(@event), class: "btn btn-sm btn-warning me-2" %>
-  <%= button_to "Delete", @event, 
-                method: :delete, 
-                data: { turbo: false },
-                class: "btn btn-sm btn-danger",
-                form_class: "d-inline-block" %>
+  <% if can? :update, @event %>
+    <%= link_to "Edit", edit_event_path(@event), class: "btn btn-sm btn-warning me-2" %>
+  <% end %>
+
+  <% if can? :destroy, @event %>
+    <%= button_to "Delete", @event, 
+                  method: :delete, 
+                  data: { turbo: false },
+                  class: "btn btn-sm btn-danger",
+                  form_class: "d-inline-block" %>
+  <% end %>
 </div>

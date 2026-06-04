@@ -10,13 +10,15 @@ class Ability
   can :read, Event
   can :read, Venue
   can :read, Category
+  can :read, Review
 
   if user.persisted?
     can :create, Event
-    can [:update, :destroy], Event, user_id: user.id
+    can [:update, :destroy], Event, organizer_id: user.id
     can :create, Registration
-    can :destroy, Registration, user_id: user.id
+    can [:update, :destroy], Registration, user_id: user.id
     can :create, Review
+    can [:upate, :destroy], Review, user_id: user.id
     can :manage, User, id: user.id
 
     if user.role == 1

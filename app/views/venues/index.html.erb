@@ -37,20 +37,24 @@
             <%= link_to "Show",
                         venue,
                         class: "btn btn-outline-primary btn-sm" %>
-
-            <%= link_to "Edit",
-                        edit_venue_path(venue),
-                        class: "btn btn-outline-secondary btn-sm" %>
-
-            <%= button_to "Delete",
-                          venue,
-                          method: :delete,
-                          class: "btn btn-outline-danger btn-sm",
-                          form: {
-                            data: {
-                              turbo_confirm: "Delete this venue?"
-                            }
-                          } %>
+            
+            <% if can? :update, venue %>
+              <%= link_to "Edit",
+                          edit_venue_path(venue),
+                          class: "btn btn-outline-secondary btn-sm" %>
+            <% end %>
+            
+            <% if can? :destroy, venue %>
+              <%= button_to "Delete",
+                            venue,
+                            method: :delete,
+                            class: "btn btn-outline-danger btn-sm",
+                            form: {
+                              data: {
+                                turbo_confirm: "Delete this venue?"
+                              }
+                            } %>
+            <% end %>
 
           </div>
 

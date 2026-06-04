@@ -18,7 +18,7 @@ class ReviewsController < ApplicationController
   def create
     @review = @event.reviews.new(review_params)
     authorize! :create, @review
-    @review.user = User.first
+    @review.user = current_user
     
     if @review.save
       redirect_to @event, notice: "Review created successfully." 
