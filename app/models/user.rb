@@ -16,6 +16,11 @@ class User < ApplicationRecord
 
   validates :email, presence: true, uniqueness: true
 
+
+  def admin?
+    role == "admin" || role == 1
+  end
+
   private
   
   def set_default_role

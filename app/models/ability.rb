@@ -18,10 +18,10 @@ class Ability
     can :create, Registration
     can [:update, :destroy], Registration, user_id: user.id
     can :create, Review
-    can [:upate, :destroy], Review, user_id: user.id
+    can [:update, :destroy], Review, user_id: user.id
     can :manage, User, id: user.id
 
-    if user.role == 1
+    if user.admin?
       can :manage, :all
     end
   end
