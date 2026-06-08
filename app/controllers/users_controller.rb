@@ -1,18 +1,24 @@
 class UsersController < ApplicationController
-  before_action :set_venue, only: [:show, :edit, :update, :destroy]
+  #before_action :set_user, only: [:show, :edit, :update, :destroy]
   
   def index
     @users = User.all
+    authorize! :read, @users
   end
 
   def show
+    @user = User.find(params[:id])
+    authorize! :read, @user
+    
   end
   
   def edit
+    @user = User.find(params[:id])
     authorize! :update, @user
   end
   
   def update
+    @user = User.find(params[:id])
     authorize! :update, @user
     if @user.update(user_params)
       redirect_to users_path, notice: "Usuario actualizado"
@@ -22,16 +28,17 @@ class UsersController < ApplicationController
   end
   
   def destroy
+    @user = User.find(params[:id])
     authorize! :destroy, @user
     @user.destroy
-    redirect_to users_path, notice: "Usuario eliminado"
+    redirect_to root_path, notice: "Usuario eliminado"
   end
   
   private
   
-  def set_user
-    @user = User.find(params[:id])
-  end
+  #def set_user
+  #  @user = User.find(params[:id])
+  #end
   
   def authorize_admin!
     unless current_user.role == 1

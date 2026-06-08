@@ -9,6 +9,7 @@
   <%= stylesheet_link_tag 'application', media: 'all' %>
   
   <%= javascript_include_tag "application", defer: true %>
+
   
 </head>
 
@@ -25,27 +26,50 @@
 
       <div class="collapse navbar-collapse" id="navbarNav">
   <ul class="navbar-nav ms-auto">
-    <li class="nav-item">
-      <%= link_to "Events", events_path, class: "nav-link" %>
+
+     <li class="nav-item">
+      <% if user_signed_in? %>
+        <%= link_to profile_path, class: "nav-link text-white" do %>
+          <%= current_user.first_name %> <%= current_user.last_name %> 
+        <% end %>
+      <% end %>
     </li>
 
     <li class="nav-item">
-      <%= link_to "Categories", categories_path, class: "nav-link" %>
+      <% if user_signed_in? && current_user.admin? %>
+        <%= link_to "Users", users_path, class: "nav-link" %>
+      <% end %>
     </li>
 
     <li class="nav-item">
-      <%= link_to "Venues", venues_path, class: "nav-link" %>
+      <% if can?(:read, Event) %>
+        <%= link_to "Events", events_path, class: "nav-link" %>
+      <% end %>
     </li>
 
     <li class="nav-item">
-      <%= link_to "Profile", user_signed_in? ? profile_path : new_user_session_path, class: "nav-link" %>
+      <% if can?(:read, Category) %>
+        <%= link_to "Categories", categories_path, class: "nav-link" %>
+      <% end %>
+    </li>
+
+    <li class="nav-item">
+      <% if can?(:read, Venue) %>
+        <%= link_to "Venues", venues_path, class: "nav-link" %>
+      <% end %>
+    </li>
+
+    <li class="nav-item">
+      <% if user_signed_in? %>
+        <%= button_to "Log out", destroy_user_session_path, method: :delete, class: "btn btn-link nav-link" %>
+       <% end %>
     </li>
 
     <li class="nav-item">
       <%= link_to "Login", new_user_session_path, class: "nav-link" %>
     </li>
 
-    <li class="nav-item">
+    <li class="nav-item"> 
       <%= link_to "Sign Up", new_user_registration_path, class: "btn btn-primary ms-2" %>
     </li>
 

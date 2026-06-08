@@ -25,7 +25,6 @@ class Event < ApplicationRecord
   validates :title, :start_date, :end_date, :maximum_capacity, presence: true
 
   validates :maximum_capacity, numericality: { greater_than: 0 }
-  validates :available_capacity, numericality: { greater_than_or_equal_to: 0 }
 
 
   validate :end_date_after_start

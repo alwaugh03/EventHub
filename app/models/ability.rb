@@ -7,12 +7,13 @@ class Ability
 
   user ||= User.new
 
-  can :read, Event
-  can :read, Venue
-  can :read, Category
-  can :read, Review
+  
 
   if user.persisted?
+    can :read, Event
+    can :read, Venue
+    can :read, Category
+    can :read, Review
     can :create, Event
     can [:update, :destroy], Event, organizer_id: user.id
     can :create, Registration
@@ -22,6 +23,7 @@ class Ability
     can :manage, User, id: user.id
 
     if user.admin?
+      can :read, User
       can :manage, :all
     end
   end

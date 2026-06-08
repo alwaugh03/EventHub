@@ -26,7 +26,7 @@
 <hr>
 
 <h3>Registrations</h3>
-  <% if @event.lifecycle_stage == :published %>
+  <% if @event.published? %>
     <%= link_to "Register", new_event_event_registration_path(@event), class: "btn btn-primary" %>
   <% end %>
 <ul>

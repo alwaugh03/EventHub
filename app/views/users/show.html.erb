@@ -1,2 +1,12 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
+
+
+<h3><%= @user.first_name %> <%= @user.last_name %></h3>
+<h5 class="text-muted"><%= @user.email %></h5>
+<p> <%= @user.phone%></p>
+</div>
+
+<div>  
+<%= button_to "Delete User", root_path, 
+    method: :delete,
+    class: "btn btn-danger" %> 
+</div>

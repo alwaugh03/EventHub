@@ -5,7 +5,9 @@
     <p class="lead">
       EventHub connects you with the best events happening around you—from concerts to tech meetups.
     </p>
-    <%= link_to "Browse Events", events_path, class: "btn btn-primary btn-lg mt-3" %>
+    <% if can?(:read, Event) %>
+      <%= link_to "Browse Events", events_path, class: "btn btn-primary btn-lg mt-3" %>
+    <% end %>
   </div>
 </section>
 
