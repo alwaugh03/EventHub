@@ -4,6 +4,7 @@ class EventRegistrationsController < ApplicationController
   before_action :authenticate_user!
 
   def index
+    @event = Event.find(params[:event_id])
     @registrations = Registration.all
   end
 
@@ -11,16 +12,17 @@ class EventRegistrationsController < ApplicationController
   end
 
   def new
+    @event = Event.find(params[:event_id])
     @registration = @event.registrations.new
     authorize! :create, @registration
   end
 
   def create
-    authorize! :create, @registration
-    email = params[:registration][:email]
+    @event = Event.find(params[:event_id])
+    email = params[:email]
     user = User.find_by(email: email)
     @registration = @event.registrations.new(user: user, status: :confirmed)
-   
+    authorize! :create, @registration
     if @registration.save
       redirect_to @event, notice: "Registration created successfully."  
     else

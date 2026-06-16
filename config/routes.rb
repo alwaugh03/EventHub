@@ -16,6 +16,4 @@ Rails.application.routes.draw do
   resources :categories
   resources :venues
   resources :users, only: [:index, :show, :edit, :update, :destroy]
-  resources :event_registrations
-  resources :reviews
 end

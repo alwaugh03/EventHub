@@ -59,7 +59,7 @@
     </li>
     <div>
     <% if can? :destroy, review %>
-      <%= button_to "Delete", review_path(review), 
+      <%= button_to "Delete", event_review_path(@event, review), 
                   method: :delete, 
                   data: { turbo: false },
                   class: "btn btn-sm btn-danger",
